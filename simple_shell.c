@@ -4,7 +4,7 @@
  *              executes single-word commands using execve.
  */
 
-#include "shell.h"
+#include "simple_shell.h"
 
 /**
  * main - Entry point of the simple shell
@@ -40,3 +40,4 @@ int main(void)
 
 	return (0);
 }
+
