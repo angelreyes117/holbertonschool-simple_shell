@@ -1,17 +1,34 @@
-/*
- * File: main.c
- * Description: Entry point for testing the simple shell program.
- */
-
-#include "simple_shell.h"
+#include "shell.h"
 
 /**
- * main - Calls the simple_shell function to execute the shell
+ * main - Entry point of the shell program
+ * @argc: Argument count
+ * @argv: Argument vector
+ * @env: Environment variables
  *
  * Return: Always 0
  */
-int main(void)
+int main(int argc, char **argv, char **env)
 {
-	return (simple_shell());
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t nread;
+
+	(void)argc;
+	(void)argv;
+
+	while (1)
+	{
+		display_prompt();
+		nread = getline(&line, &len, stdin);
+
+		if (nread == -1) /* Handle EOF or Ctrl+D */
+			break;
+
+		process_command(line, env);
+	}
+
+	free(line);
+	return (0);
 }
 
