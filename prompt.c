@@ -8,7 +8,6 @@
  */
 char *trim_spaces(char *str)
 {
-	char *end;
 	size_t i = 0, j = 0;
 
 	/* Skip leading spaces */
