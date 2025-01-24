@@ -9,16 +9,19 @@ void prompt(void)
 	size_t len = 0;
 	ssize_t nread;
 	pid_t pid;
+	int is_interactive = isatty(STDIN_FILENO); /* Check if the shell is in interactive mode */
 
 	while (1)
 	{
-		write(STDOUT_FILENO, "$ ", 2); /* Display prompt */
+		if (is_interactive) /* Only show the prompt in interactive mode */
+			write(STDOUT_FILENO, "$ ", 2);
 
 		nread = getline(&line, &len, stdin);
 		if (nread == -1) /* Handle EOF (Ctrl+D) */
 		{
 			free(line);
-			write(STDOUT_FILENO, "\n", 1);
+			if (is_interactive)
+				write(STDOUT_FILENO, "\n", 1);
 			exit(0);
 		}
 
