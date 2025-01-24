@@ -1,28 +1,19 @@
 #include "shell.h"
 
 /**
- * execute_command - Executes a command entered by the user.
- * @cmd: The command to execute.
+ * execute_command - Executes the given command.
+ * @command: The command to execute.
  */
-void execute_command(char *cmd)
+void execute_command(char *command)
 {
-	char *args[1024];
-	char *token;
-	int i = 0;
+	char *argv[2];
 
-	/* Tokenize the input string into arguments */
-	token = strtok(cmd, " ");
-	while (token != NULL)
-	{
-		args[i++] = token;
-		token = strtok(NULL, " ");
-	}
-	args[i] = NULL;
+	argv[0] = command;
+	argv[1] = NULL;
 
-	/* Execute the command */
-	if (execvp(args[0], args) == -1)
+	if (execve(command, argv, NULL) == -1)
 	{
-		perror("execvp");
-		exit(EXIT_FAILURE);
+		perror("./hsh");
+		exit(errno);
 	}
 }
