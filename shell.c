@@ -1,7 +1,5 @@
 #include "shell.h"
 
-extern char **environ;  /* Declare environ as external */
-
 void handle_error(char *command)
 {
     fprintf(stderr, "./simple_shell: 1: %s: not found\n", command);
@@ -68,9 +66,4 @@ int simple_shell(void)
 
     free(line);
     return 0;
-}
-
-int main(void)
-{
-    return simple_shell();
 }
